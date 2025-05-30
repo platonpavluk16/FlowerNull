@@ -3,6 +3,7 @@ from pyglet.shapes import Rectangle, Circle
 from pyglet.window import key
 from pyglet.sprite import Sprite
 from pyglet.gl import glClearColor
+from physic import *
 
 _batch = pyglet.graphics.Batch()
 _window = None
@@ -81,4 +82,8 @@ def setBackgroundColor(r, g, b, a=255):
 def Run():
     pyglet.clock.schedule_interval(internal_update, 1/60)
     pyglet.app.run()
+
+def del_obj(obj):
+    update_position(obj, x=10000, y=10000)
+    enable_physics(obj, solid=False)
 

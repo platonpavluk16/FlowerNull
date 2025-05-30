@@ -1,4 +1,4 @@
-from collision.collision import check_collisions
+from collision import check_collisions
 
 _physics_objects = []
 
