@@ -2,6 +2,7 @@ from draw import *
 from physic import apply_physics, enable_physics, _physics_objects
 from collision import enable_collision
 from scene_manager import SceneManager
+from pyglet import *
 
 x = 300
 y = 300
@@ -11,6 +12,7 @@ setBackgroundColor(66, 135, 245)
 
 rr1 = createRectangle(x, y, 100, 100, color=(111, 111, 111))
 r1 = createRectangle(100, 100, 800, 50, color=(186, 186, 186))
+spike = createRectangle(500, 150, 50, 100, color=(180, 180, 180))
 scene_manager = SceneManager()
 
 
@@ -40,7 +42,15 @@ class GameScene:
         player_body = next((b for b in _physics_objects if b.obj == rr1), None)
 
         if KeyClick(key.SPACE) and player_body and player_body.on_ground:
-            player_body.vy = 250
+            player_body.vy = 450
+
+        if is_touching(rr1, spike):
+            scene_manager.change_scene("menu")
+            del_obj(rr1)
+            del_obj(r1)
+            del_obj(spike)
+
+
 
         apply_physics(dt)
 
@@ -51,6 +61,8 @@ class MenuScene:
 
     def update(self, dt):
         setBackgroundColor(3, 43, 14)
+        textDraw("YOU DIED", "Arial", 24, 100, 200, anchor_x="center", anchor_y="center")
+
 
 
 scene_manager = SceneManager()

@@ -4,6 +4,7 @@ from pyglet.window import key
 from pyglet.sprite import Sprite
 from pyglet.gl import glClearColor
 from physic import *
+import sys
 
 _batch = pyglet.graphics.Batch()
 _window = None
@@ -11,6 +12,7 @@ _keys = key.KeyStateHandler()
 user_update = None
 _current_scene = None
 _current_sprite = None
+_labels = []
 
 
 def createWin(width, height, title):
@@ -86,4 +88,29 @@ def Run():
 def del_obj(obj):
     update_position(obj, x=10000, y=10000)
     enable_physics(obj, solid=False)
+
+def is_touching(obj1, obj2):
+    return (
+        obj1.x < obj2.x + obj2.width and
+        obj1.x + obj1.width > obj2.x and
+        obj1.y < obj2.y + obj2.height and
+        obj1.y + obj1.height > obj2.y
+    )
+
+def textDraw(content, font_name, font_size, x, y, anchor_x="left", anchor_y="bottom"):
+    label = pyglet.text.Label(
+        content,
+        font_name=font_name,
+        font_size=font_size,
+        x=x,
+        y=y,
+        anchor_x=anchor_x,
+        anchor_y=anchor_y,
+        batch=_batch
+    )
+    _labels.append(label)
+    return label
+
+def exit_game():
+    sys.exit()
 
