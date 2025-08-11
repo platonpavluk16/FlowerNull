@@ -55,7 +55,7 @@ class GameScene:
         apply_physics(dt)
 
 
-class MenuScene::
+class MenuScene:
     def update(self, dt):
         setBackgroundColor(3, 43, 14)
         textDraw("YOU DIED", "Arial", 24, 1000, 1000, anchor_x="center", anchor_y="center")
